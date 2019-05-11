@@ -7,5 +7,9 @@
 
 {% block body %}
 <h1>Bienvenue sur mon blog</h1>
+<p> Article N° {{ page }}</p>
 
+    <a href="{{ path('app_index', {'page' : 5}) }}">Lien vers l'article 5</a>
+
+    <a href="{{ path('app_redirecting') }}">lien vers redirection, qui en fait balance sur article 23</a>
 {% endblock %}
