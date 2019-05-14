@@ -9,7 +9,9 @@
 <h1>Bienvenue sur mon blog</h1>
 <p> Article N° {{ page }}</p>
 
-    <a href="{{ path('app_index', {'page' : 5}) }}">Lien vers l'article 5</a>
-
-    <a href="{{ path('app_redirecting') }}">lien vers redirection, qui en fait balance sur article 23</a>
+    <a href="{{ path('blog_show', {'slug' : "javascript-vs-php"}) }}">Lien vers l'article JS vs PHP</a>
+    <br>
+    <a href="{{ path('blog_show', {'slug' : "javascript-meme"}) }}">lien vers l'article Javascript Meme</a>
+    <br>
+    <a href="{{ path('show_category', {'categoryName' : 'Javascript'}) }}">Liens vers les 3 derniers articles Javascript</a>
 {% endblock %}

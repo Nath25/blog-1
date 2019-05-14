@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Blog Test
+Blog - Liste des Articles.
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,6 +10,19 @@ Blog Test
 {% endblock %}
 
 {% block body %}
-<h1>Blog test</h1>
+<h1>Tous les articles de la table Articles.</h1>
 <p>Créé par  {{ owner }}</p>
+
+    {% for line in articles %}
+        <h2>{{ loop.index }} - {{ line.title }} - Category: {{ line.category.name }}</h2>
+        <small>{{ line.DateArticle | date('d-m-Y') }}</small>
+        <p>{{ line.content }}</p>
+
+    {% else %}
+        <p> Aucuns Articles trouvés...</p>
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Back vers Page d'Acceuil...
+    </a>
 {% endblock %}

@@ -37,7 +37,7 @@ class Articles
     private $picture;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

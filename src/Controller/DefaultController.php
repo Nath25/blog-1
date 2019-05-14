@@ -23,6 +23,8 @@ class DefaultController extends AbstractController
 	 */
 	public function index($page){
 
+
+
 		return $this->render('default.html.twig', ['page'=>$page]);
 
 	}

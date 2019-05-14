@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ slug }}
+    {{ category }}
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -8,11 +8,13 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ article.title }}</h1>
+    {% for article in articlePerCat %}
+    <h1>{{ article.id }} - {{ article.title }}</h1>
     <h2>{{ article.category.name }}</h2>
-
+    <small>{{ article.datearticle | date('d-m-Y') }}</small>
     <p>{{ article.content }}</p>
 
+    {% endfor %}
     <a href="{{ path('app_index') }}">
         Retour à l'acceuil.
     </a>
