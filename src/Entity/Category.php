@@ -27,7 +27,6 @@ class Category
 	/**
 	 * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
 	 * @ORM\OrderBy({"id" = "DESC"})
-	 * @ORM\limit({1})
 	 */
     private $articles;
 
