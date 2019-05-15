@@ -2,6 +2,7 @@
 
 
 namespace App\Controller;
+use App\Entity\Category;
 Use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,9 +24,9 @@ class DefaultController extends AbstractController
 	 */
 	public function index($page){
 
+		$categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
-
-		return $this->render('default.html.twig', ['page'=>$page]);
+		return $this->render('default.html.twig', ['page'=>$page, 'categories'=>$categories]);
 
 	}
 

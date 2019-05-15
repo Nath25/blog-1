@@ -7,11 +7,10 @@
 
 {% block body %}
 <h1>Bienvenue sur mon blog</h1>
-<p> Article N° {{ page }}</p>
 
-    <a href="{{ path('blog_show', {'slug' : "javascript-vs-php"}) }}">Lien vers l'article JS vs PHP</a>
-    <br>
-    <a href="{{ path('blog_show', {'slug' : "javascript-meme"}) }}">lien vers l'article Javascript Meme</a>
-    <br>
-    <a href="{{ path('show_category', {'categoryName' : 'Javascript'}) }}">Liens vers les 3 derniers articles Javascript</a>
+    <ul>
+    {% for category in categories %}
+    <li><a href="{{ path('show_category', {'categoryName' : category.name}) }}">Liens vers les 3 derniers articles {{ category.name }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}
