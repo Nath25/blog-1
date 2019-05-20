@@ -10,6 +10,27 @@ Blog - Liste des Articles.
 {% endblock %}
 
 {% block body %}
+
+
+    <p>Rechercher: </p>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.searchField) }}
+        <button class="btn" type="submit" name="btnSubmit">{{ button_label|default('search') }}</button>
+    {{ form_end(form) }}
+    {% if data.searchField is defined %}
+    <p>Résultat recherche : {{ data.searchField }}</p>
+    {% endif %}
+    <p>Ajouter une catégorie: </p>
+    {{ form_start(addform) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(addform) }}
+    </div>
+        {{ form_row(addform.name) }}
+    <button class="btn" type="submit" name="btnSubmit">{{ button_label|default('add') }}</button>
+    {{ form_end(addform) }}
+
 <h1>Tous les articles de la table Articles.</h1>
 <p>Créé par  {{ owner }}</p>
 
