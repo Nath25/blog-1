@@ -13,40 +13,22 @@ class BlogController extends AbstractController
 {
 
 	/**
-	 * @Route("/blog/show/{slug}",
-	 *     requirements = {"slug" = "[A-Za-z0-9\-\?\:]+"},
-	 *     defaults = {"slug" = "article-sans-titre"},
+	 * @Route("/blog/show/{id}",
+	 *     requirements = {"id" = "[0-9]+"},
+	 *     defaults = {"id" = "1"},
 		 *	  name = "blog_show"
  *     		)
 	 *
 	 */
-	public function show($slug){
+	public function show(Article $article){
 
-		$slug = ucwords(str_replace('-', ' ', $slug));
-
-		if(!$slug) {
-			throw $this
-			->createNotFoundException("No Slug has been sent to find an article in the articles' table");
-		}
-
-		$article = $this->getDoctrine()
-			->getRepository(Article::class)
-			->findOneByTitle(mb_strtolower($slug));
-
-
-		if(!$article){
-			throw $this
-			->createNotFoundException('no article with ' . $slug . ' found in articles\' table');
-		}
 
 		return $this->render('blog/show.html.twig', [
-			'slug'=>$slug,
+
 			'article'=>$article
 			]);
 
 	}
-
-
 
 	/**
 	 * @Route("/blog/index",
@@ -76,10 +58,6 @@ class BlogController extends AbstractController
 	public function showByCategory(string $categoryName) {
 		$articlePerCat = $this->getDoctrine()->getRepository(Category::class)
 			->findOneByName("$categoryName")->getArticles();
-
-
-
-
 
 		return $this->render('blog/category.html.twig', [
 			'category' => $categoryName,
