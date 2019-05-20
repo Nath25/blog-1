@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-    {% for article in articlePerTag %}
+    {% for article in articlePerCat %}
 
         <h1><a href="{{ path('blog_show', {'article' : article.id }) }}">{{ article.id }} - {{ article.title }}</a></h1>
     <h2>{{ article.category.name }}</h2>
