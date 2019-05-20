@@ -6,10 +6,16 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Form\ArticleSearch;
+use App\Form\CategoryType;
+use PhpParser\Node\Expr\Cast\Object_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\FormInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class BlogController extends AbstractController
 {
@@ -37,8 +43,27 @@ class BlogController extends AbstractController
  *			name ="blog_index"
 	 * )
 	 */
-	public function index()
+	public function index(Request $request, ObjectManager $manager)
 	{
+
+		$form = $this->createForm(ArticleSearch::class, null, ['method'=>Request::METHOD_GET]);
+		$form->handleRequest($request);
+		$data=[];
+		if($form->isSubmitted()){
+			$data = $form->getData();
+		}
+
+
+		$categoryForm = new Category();
+
+		$addForm = $this->createForm(CategoryType::class, $categoryForm);
+		$addForm->handleRequest($request);
+		if($addForm->isSubmitted() && $addForm->isValid()) {
+
+		$dataAdd = $addForm->getData($request);
+		$manager->persist($dataAdd);
+		$manager->flush();
+		}
 
 		$articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
@@ -50,7 +75,10 @@ class BlogController extends AbstractController
 
 		return $this->render('home.html.twig', [
 			'owner' => 'Thomas',
-			'articles' => $articles
+			'articles' => $articles,
+			'form' => $form->createView(),
+			'addform' =>$addForm->createView(),
+			'data' => $data
 		]);
 	}
 

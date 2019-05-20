@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Add a category
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+{% endblock %}
+
+{% block body %}
+
+    {% for category in categories %}
+        <p>{{ category.name }}</p>
+    {% endfor %}
+
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+    <button class="btn" type="submit" name="btnSubmit">{{ button_label|default('add') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'acceuil.
+    </a>
+{% endblock %}
+
