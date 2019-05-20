@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,6 +69,24 @@ class BlogController extends AbstractController
 		]);
 
 	}
+
+	/**
+	 * @param $name
+	 * @return Response
+	 * @Route ("/tag/{tagName}", name="app_tag",
+	 *	 defaults = {"tagName" = "developpement"})
+	 * @ParamConverter ("tagName", class="App\Entity\Tag", options = {"mapping" :{"tagName" : "name"}})
+	 */
+	public function showTag(Tag $tagName) {
+
+		$articlePerTag = $tagName->getArticles();
+		return $this->render('blog/tag.html.twig', [
+			'articlePerTag' => $articlePerTag
+		]);
+	}
+
+
+
 
 	/**
 	 * @Route("/blog/categorylist/{category_id}", name="show_oneCat")

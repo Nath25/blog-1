@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ category.name }}
+  TAGS
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -8,12 +8,14 @@
 {% endblock %}
 
 {% block body %}
+
+    <h1>Exercice Tag : </h1>
     {% for article in articlePerTag %}
 
         <h1><a href="{{ path('blog_show', {'article' : article.id }) }}">{{ article.id }} - {{ article.title }}</a></h1>
-    <h2>{{ article.category.name }}</h2>
-    <small>{{ article.datearticle | date('d-m-Y') }}</small>
-    <p>{{ article.content }}</p>
+        <h2>{{ article.category.name }}</h2>
+        <small>{{ article.datearticle | date('d-m-Y') }}</small>
+        <p>{{ article.content }}</p>
 
     {% endfor %}
     <a href="{{ path('app_index') }}">
