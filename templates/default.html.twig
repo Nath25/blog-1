@@ -13,4 +13,5 @@
     <li><a href="{{ path('show_category', {'categoryName' : category.name}) }}">Liens vers les 3 derniers articles {{ category.name }}</a></li>
     {% endfor %}
     </ul>
+    <a href="{{ path('blog_index') }}">Liste de tous les articles</a>
 {% endblock %}

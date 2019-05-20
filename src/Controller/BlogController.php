@@ -8,14 +8,15 @@ use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BlogController extends AbstractController
 {
 
 	/**
-	 * @Route("/blog/show/{id}",
-	 *     requirements = {"id" = "[0-9]+"},
-	 *     defaults = {"id" = "1"},
+	 * @Route("/blog/show/{article}",
+	 *     requirements = {"article" = "[0-9]+"},
+	 *     defaults = {"article" = "1"},
 		 *	  name = "blog_show"
  *     		)
 	 *
@@ -54,16 +55,28 @@ class BlogController extends AbstractController
 
 	/**
 	 * @Route ("/blog/category/{categoryName}", name="show_category")
+	 * @ParamConverter ("name", class="App\Entity\Category", options = {"mapping" : {"categoryName" : "name"}})
 	 */
-	public function showByCategory(string $categoryName) {
-		$articlePerCat = $this->getDoctrine()->getRepository(Category::class)
+	public function showByCategory(Category $name) {
+		/*$articlePerCat = $this->getDoctrine()->getRepository(Category::class)
 			->findOneByName("$categoryName")->getArticles();
-
+		*/
+		$articlePerCat = $name->getArticles();
 		return $this->render('blog/category.html.twig', [
-			'category' => $categoryName,
+			'category' => $name,
 			"articlePerCat" => $articlePerCat
 		]);
 
+	}
+
+	/**
+	 * @Route("/blog/categorylist/{category_id}", name="show_oneCat")
+	 * @ParamConverter("id", class="App\Entity\Category", options={"id"="category_id"})
+	 */
+	public function showCategories(Category $id) {
+		return $this->render('blog/categoryList.html.twig', [
+			'category'=> $id
+		]);
 	}
 
 }

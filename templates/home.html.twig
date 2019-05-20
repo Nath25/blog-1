@@ -14,7 +14,7 @@ Blog - Liste des Articles.
 <p>Créé par  {{ owner }}</p>
 
     {% for line in articles %}
-        <h2><a href="{{ path('blog_show', {"id" : line.id}) }}">{{ loop.index }}</a> - {{ line.title }} - Category: {{ line.category.name }}</h2>
+        <h2><a href="{{ path('blog_show', {"article" : line.id}) }}">{{ loop.index }}</a> - {{ line.title }} - Category: {{ line.category.name }}</h2>
         <small>{{ line.DateArticle | date('d-m-Y') }}</small>
         <p>{{ line.content }}</p>
 
